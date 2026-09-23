@@ -177,7 +177,7 @@ def valor_eh_bool(serie):
 def tentar_converter_numero(serie):
     if valor_eh_bool(serie): return None
     convertida = pd.to_numeric(serie, errors="coerce")
-    return convertida if (convertida.notna().sum() / serie.notna().sum()) >= 0.95 else None
+    return convertida if serie.notna().sum() > 0 and (convertida.notna().sum() / serie.notna().sum()) >= 0.95 else None
 
 def comparar_csv(before_path, after_path, output_path):
     tipo = identificar_tipo_csv(Path(before_path).name)
